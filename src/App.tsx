@@ -2,7 +2,9 @@ import * as React from 'react'
 import {compose} from 'fp-ts/lib/function'
 import {Lens} from 'monocle-ts'
 
-export function App() {
+import {ConnectedPosts} from './Posts'
+
+function App() {
   const [value, setValue] = React.useState('helloz!')
 
   React.useEffect(greet, [])
@@ -12,7 +14,12 @@ export function App() {
     inputValue.get,
   )
 
-  return <input onChange={onChange} value={value} />
+  return (
+    <>
+      <input onChange={onChange} value={value} />
+      <ConnectedPosts />
+    </>
+  )
 }
 
 type OnChange = React.ChangeEvent<HTMLInputElement>
@@ -20,5 +27,7 @@ type OnChange = React.ChangeEvent<HTMLInputElement>
 const inputValue = Lens.fromPath<OnChange>()(['target', 'value'])
 
 function greet() {
-  alert('hey!')
+  console.log('hey!')
 }
+
+export {App}
