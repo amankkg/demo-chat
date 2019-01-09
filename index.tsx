@@ -5,6 +5,4 @@ import {App} from './src/App'
 
 const element = document.getElementById('root')
 
-if (element) {
-  render(<App />, element)
-}
+if (element) render(<App />, element)

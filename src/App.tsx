@@ -1,11 +1,23 @@
 import * as React from 'react'
+import {compose} from 'fp-ts/lib/function'
 
-export class App extends React.Component {
-  componentDidMount() {
-    alert('hey')
-  }
+export function App() {
+  const [value, setValue] = React.useState('helloz!')
 
-  render() {
-    return <h1>Helloz!</h1>
-  }
+  React.useEffect(greet, [])
+
+  const onChange = compose(
+    setValue,
+    getInputValue,
+  )
+
+  return <input onChange={onChange} value={value} />
+}
+
+function greet() {
+  alert('hey!')
+}
+
+function getInputValue(e: React.ChangeEvent<HTMLInputElement>) {
+  return e.target.value
 }
