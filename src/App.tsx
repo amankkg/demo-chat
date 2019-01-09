@@ -4,7 +4,7 @@ import {Lens} from 'monocle-ts'
 
 import {ConnectedPosts} from './Posts'
 
-function App() {
+const App = () => {
   const [value, setValue] = React.useState('helloz!')
 
   React.useEffect(greet, [])

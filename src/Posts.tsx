@@ -1,26 +1,22 @@
 import * as React from 'react'
+
 import {Connect, connect} from './overmind'
+import {PostListItem} from './PostListItem'
 
-class Posts extends React.Component<Connect> {
-  componentDidMount() {
-    const {overmind} = this.props
-
+const Posts: React.FunctionComponent<Connect> = ({overmind}) => {
+  React.useEffect(() => {
     overmind.actions.loadPosts()
-  }
+  }, [])
 
-  render() {
-    const {overmind} = this.props
+  if (overmind.state.isLoadingPosts) return <h4>Loading posts...</h4>
 
-    if (overmind.state.isLoadingPosts) return <h4>Loading posts...</h4>
-
-    return (
-      <ul>
-        {overmind.state.posts.map(p => (
-          <li key={p.id}>{p.title}</li>
-        ))}
-      </ul>
-    )
-  }
+  return (
+    <ul>
+      {overmind.state.posts.map(p => (
+        <PostListItem key={p.id} {...p} />
+      ))}
+    </ul>
+  )
 }
 
 const ConnectedPosts = connect(Posts)
