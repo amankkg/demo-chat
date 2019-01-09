@@ -5,7 +5,7 @@ import {PostListItem} from './PostListItem'
 
 const Posts: React.FunctionComponent<Connect> = ({overmind}) => {
   React.useEffect(() => {
-    overmind.actions.loadPosts()
+    overmind.actions.loadPosts(20)
   }, [])
 
   if (overmind.state.isLoadingPosts) return <h4>Loading posts...</h4>

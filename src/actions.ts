@@ -1,7 +1,16 @@
 import {Action} from 'overmind'
+import {take} from 'fp-ts/lib/Array'
 
-export const loadPosts: Action = async ({state, jsonPlaceholder}) => {
+export const loadPosts: Action<number> = async ({
+  value,
+  state,
+  jsonPlaceholder,
+}) => {
   state.isLoadingPosts = true
-  state.posts = await jsonPlaceholder.getPosts()
+
+  const posts = await jsonPlaceholder.getPosts()
+
+  state.posts = take(value, posts)
+
   state.isLoadingPosts = false
 }
