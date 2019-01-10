@@ -3,21 +3,22 @@ import {Comment} from 'semantic-ui-react'
 import {formatDistance} from 'date-fns'
 import styled from '@emotion/styled'
 
-import {Msg} from './state'
+import {Msg, User} from './state'
 
-const Message: React.SFC<Msg> = ({content, userId, created}) => (
-  <Comment>
-    <Comment.Avatar
-      as={Avatar}
-      src='https://api.adorable.io/avatars/50/abott@adorable.png'
-    />
+const Message: React.SFC<{message: Msg; sender: User; ownership: boolean}> = ({
+  message,
+  sender,
+  ownership,
+}) => (
+  <Comment as={ownership ? MyComment : 'div'}>
+    <Comment.Avatar as={Avatar} src={sender.avatar} />
     <Comment.Content>
-      <Comment.Author>{userId}</Comment.Author>
       <Comment.Metadata>
-        <small>{formatDistance(created, new Date())} ago</small>
+        <strong>{sender.name}</strong>{' '}
+        <small>{formatDistance(message.created, new Date())} ago</small>
       </Comment.Metadata>
       <Comment.Text>
-        <p>{content}</p>
+        <P>{message.content}</P>
       </Comment.Text>
     </Comment.Content>
     <Comment.Actions>
@@ -26,10 +27,24 @@ const Message: React.SFC<Msg> = ({content, userId, created}) => (
   </Comment>
 )
 
+const MyComment = styled.div`
+  background: #e0d0b8;
+  transform: scale(-1, 1);
+  text-align: right;
+  & > * {
+    transform: scale(-1, 1);
+  }
+`
+
 const Avatar = styled.image`
   max-width: 50px;
   max-height: 40px;
   border: 1px solid lightgray;
+`
+
+const P = styled.p`
+  padding-left: 5px;
+  padding-right: 5px;
 `
 
 export {Message}

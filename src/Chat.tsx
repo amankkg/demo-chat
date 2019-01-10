@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {Comment, Header} from 'semantic-ui-react'
+import styled from '@emotion/styled'
 
 import {Connect, connect} from './overmind'
 import {Message} from './Message'
@@ -12,16 +13,32 @@ const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
   if (overmind.state.isLoadingMessages) return <h4>Loading messages...</h4>
 
   return (
-    <Comment.Group>
+    <Comment.Group as={RoseDiv}>
       <Header as='h3' dividing>
         Chat
       </Header>
-      {overmind.state.messages.map(p => (
-        <Message key={p.id} {...p} />
-      ))}
+      {overmind.state.messages.map(msg => {
+        const isOwner = msg.userId === overmind.state.currentUser
+        const sender = overmind.state.users.find(u => u.id === msg.userId)
+        if (sender === undefined) throw new Error('sender of message not found')
+
+        return (
+          <Message
+            key={msg.id}
+            message={msg}
+            sender={sender}
+            ownership={isOwner}
+          />
+        )
+      })}
     </Comment.Group>
   )
 }
+
+const RoseDiv = styled.div`
+  min-width: 300px;
+  background-color: #fffbf5;
+`
 
 const ConnectedChat = connect(Chat)
 

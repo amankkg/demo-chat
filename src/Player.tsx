@@ -8,6 +8,8 @@ const Player = () => (
 )
 
 const Layout = styled.div`
+  background-color: #fffdfa;
+  min-width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
