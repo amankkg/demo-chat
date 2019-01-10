@@ -1,16 +1,20 @@
-export type Post = {
-  id: string
+type MsgId = string
+
+export type Msg = {
+  id: MsgId
   userId: string
-  title: string
-  body: string
+  content: string
+  created: number
 }
 
 export type State = {
-  isLoadingPosts: boolean
-  posts: Post[]
+  isLoadingMessages: boolean
+  messages: Msg[]
+  currentMessage?: MsgId
 }
 
 export const state: State = {
-  isLoadingPosts: false,
-  posts: [],
+  isLoadingMessages: false,
+  messages: [],
+  currentMessage: undefined,
 }

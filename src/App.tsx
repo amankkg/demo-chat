@@ -1,33 +1,19 @@
 import * as React from 'react'
-import {compose} from 'fp-ts/lib/function'
-import {Lens} from 'monocle-ts'
+import styled from '@emotion/styled'
 
-import {ConnectedPosts} from './Posts'
+import {ConnectedChat} from './Chat'
+import {Player} from './Player'
 
-const App = () => {
-  const [value, setValue] = React.useState('helloz!')
+const App = () => (
+  <Layout>
+    <ConnectedChat />
+    <Player />
+  </Layout>
+)
 
-  React.useEffect(greet, [])
-
-  const onChange = compose(
-    setValue,
-    inputValue.get,
-  )
-
-  return (
-    <>
-      <input onChange={onChange} value={value} />
-      <ConnectedPosts />
-    </>
-  )
-}
-
-type OnChange = React.ChangeEvent<HTMLInputElement>
-
-const inputValue = Lens.fromPath<OnChange>()(['target', 'value'])
-
-function greet() {
-  console.log('hey!')
-}
+const Layout = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
 
 export {App}

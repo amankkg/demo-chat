@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "parcel build index.html",
-    "dev": "parcel index.html",
+    "dev": "parcel index.html -p 3000",
     "devtools": "overmind-devtools",
     "start": "run-p dev devtools"
   },
@@ -21,10 +21,15 @@
     "typescript": "^3.2.2"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.6",
+    "@emotion/styled": "^10.0.6",
+    "date-fns": "^2.0.0-alpha.26",
     "fp-ts": "^1.12.3",
     "monocle-ts": "^1.5.2",
+    "nanoid": "^2.0.0",
     "overmind-react": "^11.0.0",
     "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react-dom": "^16.7.0-alpha.2",
+    "semantic-ui-react": "^0.84.0"
   }
 }

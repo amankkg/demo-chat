@@ -2,6 +2,7 @@
   "arrowParens": "avoid",
   "bracketSpacing": false,
   "jsxBracketSameLine": false,
+  "jsxSingleQuote": true,
   "semi": false,
   "singleQuote": true,
   "trailingComma": "all"

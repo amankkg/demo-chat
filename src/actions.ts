@@ -1,16 +1,14 @@
 import {Action} from 'overmind'
-import {take} from 'fp-ts/lib/Array'
 
-export const loadPosts: Action<number> = async ({
-  value,
-  state,
-  jsonPlaceholder,
-}) => {
-  state.isLoadingPosts = true
+export const loadMessages: Action = async ({state, backendService}) => {
+  state.isLoadingMessages = true
 
-  const posts = await jsonPlaceholder.getPosts()
+  state.messages = await backendService.getMessages()
 
-  state.posts = take(value, posts)
+  state.isLoadingMessages = false
 
-  state.isLoadingPosts = false
+  const count = state.messages.length
+
+  if (count > 0) state.currentMessage = state.messages[count - 1].id
+  else state.currentMessage = undefined
 }

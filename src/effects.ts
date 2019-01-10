@@ -1,8 +1,19 @@
-import {Post} from './state'
+import {Msg} from './state'
+import {newId, newNum} from './new-id'
 
-export const jsonPlaceholder = {
-  getPosts(): Promise<Post[]> {
-    return fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(resp => resp.json()) // prettier-ignore
+export const backendService = {
+  async getMessages(): Promise<Msg[]> {
+    const messages: Msg[] = []
+
+    for (let i = 0; i < 20; i++) {
+      const id = await newId()
+      const userId = (await newNum()) % 2 === 0 ? 'user1' : 'user2'
+      const content = `hey hoo ${i}`
+      const created = Date.now() - 1e8 + i * 9 * 1e6
+
+      messages.push({id, content, userId, created})
+    }
+
+    return messages
   },
 }
