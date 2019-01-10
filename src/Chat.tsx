@@ -36,8 +36,9 @@ const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
 }
 
 const RoseDiv = styled.div`
-  min-width: 300px;
+  min-width: 500px;
   background-color: #fffbf5;
+  padding: 5px;
 `
 
 const ConnectedChat = connect(Chat)
