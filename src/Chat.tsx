@@ -4,23 +4,32 @@ import styled from '@emotion/styled'
 
 import {Connect, connect} from './overmind'
 import {Message} from './Message'
+import {findFirst} from 'fp-ts/lib/Array'
 
 const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
+  const {
+    actions: {loadMessages},
+    state: {isLoadingMessages, currentUser, messages, users},
+  } = overmind
+
   React.useEffect(() => {
-    overmind.actions.loadMessages()
+    loadMessages('1') // id of a user
   }, [])
 
-  if (overmind.state.isLoadingMessages) return <h4>Loading messages...</h4>
+  if (isLoadingMessages) return <h4>Loading messages...</h4>
 
   return (
     <Comment.Group as={RoseDiv}>
       <Header as='h3' dividing>
         Chat
       </Header>
-      {overmind.state.messages.map(msg => {
-        const isOwner = msg.userId === overmind.state.currentUser
-        const sender = overmind.state.users.find(u => u.id === msg.userId)
-        if (sender === undefined) throw new Error('sender of message not found')
+      {messages.map(msg => {
+        const isOwner = msg.userId === currentUser
+        const sender = findFirst(users, u => msg.userId === u.id).getOrElse({
+          name: 'unknown',
+          id: 'unknown',
+          avatar: 'unknown',
+        })
 
         return (
           <Message
@@ -37,7 +46,6 @@ const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
 
 const RoseDiv = styled.div`
   min-width: 500px;
-  background-color: #fffbf5;
   padding: 5px;
 `
 

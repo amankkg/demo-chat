@@ -1,18 +1,23 @@
 import {Action} from 'overmind'
+import {findFirst, last} from 'fp-ts/lib/Array'
 
-export const loadMessages: Action = async ({state, backendService}) => {
+export const loadMessages: Action<string> = async ({
+  value: userId,
+  state,
+  backendService,
+}) => {
   state.isLoadingMessages = true
 
-  state.users = await backendService.getUsers()
+  const users = await backendService.getUsers()
+  state.users = users
+  state.currentUser = findFirst(users, u => u.id === userId).fold(
+    undefined,
+    u => u.id,
+  )
 
-  if (state.users.length > 0) state.currentUser = state.users[1].id
-  else state.currentUser = undefined
-
-  state.messages = await backendService.getMessages()
-
-  if (state.messages.length > 0)
-    state.playerMessage = state.messages[state.messages.length - 1].id
-  else state.playerMessage = undefined
+  const messages = await backendService.getMessages()
+  state.messages = messages
+  state.playerMessage = last(messages).fold(undefined, m => m.id)
 
   state.isLoadingMessages = false
 }

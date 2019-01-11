@@ -5,12 +5,14 @@ import styled from '@emotion/styled'
 
 import {Msg, User} from './state'
 
-const Message: React.SFC<{message: Msg; sender: User; ownership: boolean}> = ({
-  message,
-  sender,
-  ownership,
-}) => (
-  <Comment as={ownership ? MyComment : 'div'}>
+type TProps = {
+  message: Msg
+  sender: User
+  ownership: boolean
+}
+
+const Message: React.SFC<TProps> = ({message, sender, ownership}) => (
+  <Comment as={ownership ? MyComment : OthersComment}>
     <Comment.Avatar as={Avatar} src={sender.avatar} />
     <Comment.Content>
       <Comment.Metadata>
@@ -28,11 +30,19 @@ const Message: React.SFC<{message: Msg; sender: User; ownership: boolean}> = ({
 )
 
 const MyComment = styled.div`
-  background: #e0d0b8;
   transform: scale(-1, 1);
   text-align: right;
   & > * {
     transform: scale(-1, 1);
+  }
+  & > div.content > div.text {
+    background-color: #e0d0b8;
+  }
+`
+
+const OthersComment = styled.div`
+  & > div.content > div.text {
+    background-color: #fffbf5;
   }
 `
 
