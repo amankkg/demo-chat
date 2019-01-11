@@ -1,7 +1,7 @@
 import {Action} from 'overmind'
 import {findFirst, last} from 'fp-ts/lib/Array'
 
-export const loadMessages: Action<string> = async ({
+export const loadData: Action<string> = async ({
   value: userId,
   state,
   backendService,
@@ -15,7 +15,7 @@ export const loadMessages: Action<string> = async ({
     u => u.id,
   )
 
-  const messages = await backendService.getMessages()
+  const messages = await backendService.getMessages(userId)
   state.messages = messages
   state.playerMessage = last(messages).fold(undefined, m => m.id)
 

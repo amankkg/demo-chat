@@ -23,7 +23,7 @@ export const backendService = {
     ]
   },
 
-  async getMessages(): Promise<Msg[]> {
+  async getMessages(userId: string): Promise<Msg[]> {
     const messages: Msg[] = []
 
     for (let i = 0; i < 5; i++) {

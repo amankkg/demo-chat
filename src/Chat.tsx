@@ -8,12 +8,12 @@ import {findFirst} from 'fp-ts/lib/Array'
 
 const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
   const {
-    actions: {loadMessages},
+    actions: {loadData},
     state: {isLoadingMessages, currentUser, messages, users},
   } = overmind
 
   React.useEffect(() => {
-    loadMessages('1') // id of a user
+    loadData('1') // id of a user
   }, [])
 
   if (isLoadingMessages) return <h4>Loading messages...</h4>
