@@ -2,8 +2,18 @@ import {Overmind, TConfig} from 'overmind'
 import {TConnect, createConnect} from 'overmind-react'
 
 import {state} from './state'
-import * as actions from './actions'
+
+import * as rootActions from './actions'
+import * as chatActions from './chat/actions'
+import * as playerActions from './player/actions'
+
 import * as effects from './effects'
+
+const actions = {
+  ...rootActions,
+  ...chatActions,
+  ...playerActions,
+}
 
 const config = {state, actions, effects}
 

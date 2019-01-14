@@ -2,8 +2,8 @@ import * as React from 'react'
 import {render} from 'react-dom'
 import styled from '@emotion/styled'
 
-import {ConnectedChat} from './src/components/chat'
-import {Player} from './src/components/player'
+import {ConnectedChat} from './src/chat/chat'
+import {Player} from './src/player/player'
 
 const Index = () => (
   <Layout>

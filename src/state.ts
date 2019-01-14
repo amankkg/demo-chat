@@ -1,3 +1,4 @@
+// TODO: re-organize overmind stuff by features?
 export type Msg = {
   id: string
   userId: string
@@ -12,7 +13,7 @@ export type User = {
 }
 
 export type State = {
-  isLoadingMessages: boolean
+  isLoadingChat: boolean
   messages: Msg[]
   users: User[]
   playerMessage?: Msg['id']
@@ -20,7 +21,7 @@ export type State = {
 }
 
 export const state: State = {
-  isLoadingMessages: false,
+  isLoadingChat: false,
   messages: [],
   users: [],
   playerMessage: undefined,

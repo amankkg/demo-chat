@@ -3,9 +3,14 @@ import nanoId from 'nanoid'
 // @ts-ignore
 import generate from 'nanoid/generate'
 
-const newId = (): string => nanoId()
+function newId(): string {
+  return nanoId()
+}
 
-const newNum = (length: number = 10): number =>
-  parseInt(generate('0123456789', length), 10)
+function newNum(length: number = 10): number {
+  const str = generate('0123456789', length)
+
+  return parseInt(str, 10)
+}
 
 export {newId, newNum}

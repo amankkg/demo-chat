@@ -1,4 +1,4 @@
-import {User} from './state'
+import {User} from '../state'
 
 export const UnknownUser: User = {
   name: 'unknown',

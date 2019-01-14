@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 
 const Player = () => (
   <Layout>
-    <h1>@TODO: State player</h1>
+    <h1>TODO: State player</h1>
   </Layout>
 )
 

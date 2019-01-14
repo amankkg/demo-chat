@@ -6,7 +6,7 @@ export const loadData: Action<string> = async ({
   state,
   backendService,
 }) => {
-  state.isLoadingMessages = true
+  state.isLoadingChat = true
 
   const [users, messages] = await Promise.all([
     backendService.getUsers(),
@@ -22,5 +22,5 @@ export const loadData: Action<string> = async ({
   state.messages = messages
   state.playerMessage = last(messages).fold(undefined, m => m.id)
 
-  state.isLoadingMessages = false
+  state.isLoadingChat = false
 }
