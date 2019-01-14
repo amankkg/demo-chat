@@ -1,5 +1,5 @@
-import {Msg, User} from './state'
 import {newId, newNum} from './new-id'
+import {Msg, User} from './state'
 
 export const backendService = {
   async getUsers(): Promise<User[]> {
@@ -27,8 +27,8 @@ export const backendService = {
     const messages: Msg[] = []
 
     for (let i = 0; i < 5; i++) {
-      const id = await newId()
-      const userId = ((await newNum()) % 3).toString()
+      const id = newId()
+      const userId = (newNum() % 3).toString()
       const content = `hey hoo ${i}`
       const created = Date.now() - 1e8 + i * 9 * 1e6
 

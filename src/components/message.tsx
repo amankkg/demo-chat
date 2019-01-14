@@ -3,7 +3,7 @@ import {Comment} from 'semantic-ui-react'
 import {formatDistance} from 'date-fns'
 import styled from '@emotion/styled'
 
-import {Msg, User} from './state'
+import {Msg, User} from '../state'
 
 type TProps = {
   message: Msg
@@ -49,7 +49,6 @@ const OthersComment = styled.div`
 const Avatar = styled.image`
   max-width: 50px;
   max-height: 40px;
-  border: 1px solid lightgray;
 `
 
 const P = styled.p`

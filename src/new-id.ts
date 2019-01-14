@@ -1,16 +1,11 @@
 // @ts-ignore
-import nanoId from 'nanoid/async'
+import nanoId from 'nanoid'
 // @ts-ignore
-import generate from 'nanoid/async/generate'
+import generate from 'nanoid/generate'
 
-async function newId(): Promise<string> {
-  return await nanoId()
-}
+const newId = (): string => nanoId()
 
-async function newNum(): Promise<number> {
-  const value = await generate('0123456789', 10)
-
-  return parseInt(value, 10)
-}
+const newNum = (length: number = 10): number =>
+  parseInt(generate('0123456789', length), 10)
 
 export {newId, newNum}

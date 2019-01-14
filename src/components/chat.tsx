@@ -1,19 +1,22 @@
 import * as React from 'react'
 import {Comment, Header} from 'semantic-ui-react'
 import styled from '@emotion/styled'
-
-import {Connect, connect} from './overmind'
-import {Message} from './Message'
 import {findFirst} from 'fp-ts/lib/Array'
 
-const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
+import {Connect, connect} from '../overmind'
+import {Message} from './message'
+import {UnknownUser} from '../unknown-user'
+
+type TProps = Connect & {userId: string}
+
+const Chat: React.FunctionComponent<TProps> = ({overmind, userId}) => {
   const {
     actions: {loadData},
     state: {isLoadingMessages, currentUser, messages, users},
   } = overmind
 
   React.useEffect(() => {
-    loadData('1') // id of a user
+    loadData(userId) // id of a user
   }, [])
 
   if (isLoadingMessages) return <h4>Loading messages...</h4>
@@ -25,11 +28,9 @@ const Chat: React.FunctionComponent<Connect> = ({overmind}) => {
       </Header>
       {messages.map(msg => {
         const isOwner = msg.userId === currentUser
-        const sender = findFirst(users, u => msg.userId === u.id).getOrElse({
-          name: 'unknown',
-          id: 'unknown',
-          avatar: 'unknown',
-        })
+        const sender = findFirst(users, u => msg.userId === u.id).getOrElse(
+          UnknownUser,
+        )
 
         return (
           <Message

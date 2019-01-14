@@ -8,14 +8,17 @@ export const loadData: Action<string> = async ({
 }) => {
   state.isLoadingMessages = true
 
-  const users = await backendService.getUsers()
+  const [users, messages] = await Promise.all([
+    backendService.getUsers(),
+    backendService.getMessages(userId),
+  ])
+
   state.users = users
   state.currentUser = findFirst(users, u => u.id === userId).fold(
     undefined,
     u => u.id,
   )
 
-  const messages = await backendService.getMessages(userId)
   state.messages = messages
   state.playerMessage = last(messages).fold(undefined, m => m.id)
 
