@@ -1,5 +1,4 @@
 import {Msg, User} from './state'
-import {newId, newNum} from './new-id'
 
 export const backendService = {
   async getUsers(): Promise<User[]> {

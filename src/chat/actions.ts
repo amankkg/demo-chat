@@ -1,7 +1,7 @@
 import {Action} from 'overmind'
 
 import {Msg} from '../state'
-import {newId} from '../new-id'
+import {newId} from '../utils'
 
 export const sendMessage: Action<string> = async ({
   value,

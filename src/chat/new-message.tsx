@@ -1,24 +1,31 @@
 import * as React from 'react'
 import {Form} from 'semantic-ui-react'
+import {compose} from 'fp-ts/lib/function'
 
 import {Connect, connect} from '../overmind'
+import {onSubmit, getValue} from '../utils'
 
 const initValue = ''
 
 const NewMessage: React.FunctionComponent<Connect> = ({overmind}) => {
   const [value, setValue] = React.useState(initValue)
   const color = value ? 'blue' : undefined
-  const submit = () => {
-    overmind.actions.sendMessage(value)
-    setValue(initValue)
-  }
+  const change = compose(
+    setValue,
+    getValue,
+  )
+  const submit = compose(
+    () => setValue(initValue),
+    () => overmind.actions.sendMessage(value),
+    onSubmit,
+  )
 
   return (
-    <Form onSubmit={e => (e.preventDefault(), submit())}>
+    <Form onSubmit={submit}>
       <Form.Input
         placeholder='Say something...'
         value={value}
-        onChange={e => setValue(e.target.value)}
+        onChange={change}
         action={{type: 'submit', icon: 'send', color}}
       />
     </Form>
