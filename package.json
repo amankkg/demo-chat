@@ -30,6 +30,7 @@
     "overmind-react": "^11.0.0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
-    "semantic-ui-react": "^0.84.0"
+    "semantic-ui-react": "^0.84.0",
+    "xstate": "^4.2.4"
   }
 }
