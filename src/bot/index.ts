@@ -1,7 +1,7 @@
 import {Machine} from 'xstate'
 import {interpret} from 'xstate/lib/interpreter'
 
-const toggleMAchine = Machine({
+const toggleMachine = Machine({
   initial: 'inactive',
   states: {
     inactive: {on: {TOGGLE: 'active'}},
@@ -9,7 +9,7 @@ const toggleMAchine = Machine({
   },
 })
 
-const toggleService = interpret(toggleMAchine)
+const toggleService = interpret(toggleMachine)
   .onTransition(state => console.log(state.value))
   .start()
 
